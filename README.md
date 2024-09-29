@@ -29,7 +29,7 @@ Este projeto foi desenvolvido utilizando as seguintes tecnologias:
 1. Certifique-se de ter o Node.js instalado em sua máquina.
 2. Clone este repositório:
    ```
-   git clone https://github.com/seu-usuario/2048-react.git
+   git clone https://github.com/jefersonmarciano/game-2044.git
    ```
 3. Navegue até a pasta do projeto:
    ```
