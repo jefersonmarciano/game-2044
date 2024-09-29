@@ -12,9 +12,13 @@ function App() {
     return saved !== null ? parseInt(saved, 10) : 0
   })
   const [gameOver, setGameOver] = useState(false)
+  const [bombAvailable, setBombAvailable] = useState(false)
   const [bombMode, setBombMode] = useState(false)
   const [explodingTiles, setExplodingTiles] = useState([])
-  const [bombAvailable, setBombAvailable] = useState(false)
+  const [freezeCount, setFreezeCount] = useState(0)
+  const [removeCount, setRemoveCount] = useState(0)
+  const [freezeActive, setFreezeActive] = useState(false)
+  const [removeActive, setRemoveActive] = useState(false)
 
   const handleMove = (direction) => {
     if (!gameOver && !bombMode) {
@@ -55,12 +59,14 @@ function App() {
   }, [board, gameOver, bombMode])
 
   const handleBombClick = () => {
-    setBombMode(true)
+    if (bombAvailable) {
+      setBombMode(true)
+    }
   }
 
   const handleTileClick = (row, col) => {
     if (bombMode) {
-      const { newBoard, removedValue } = useBomb(board, row, col);
+      const { newBoard, removedValue } = useBomb(board, row, col)
       
       const explodingTiles = [
         { row, col },
@@ -75,8 +81,9 @@ function App() {
         setExplodingTiles([]);
         setBoard(newBoard);
         setScore(prevScore => prevScore + removedValue);
+        setBombAvailable(false);
         setBombMode(false);
-      }, 500);
+      }, 500); // Ajustado para 500ms para corresponder à duração da animação
     }
   }
 
@@ -112,13 +119,21 @@ function App() {
           explodingTiles={explodingTiles}
         />
       </div>
-      {bombAvailable && (
-        <button onClick={handleBombClick} className="bomb-button" disabled={bombMode}>
-          {bombMode ? 'Bomba Ativa' : 'Usar Bomba'}
+      {bombAvailable && !bombMode && (
+        <button onClick={handleBombClick} className="bomb-button">
+          Usar Bomba
         </button>
       )}
       {gameOver && <GameOver score={score} bestScore={bestScore} onRestart={resetGame} />}
       <button onClick={resetGame}>Reiniciar</button>
+      <div className="power-ups">
+        <button onClick={() => activatePowerUp('freeze')} disabled={freezeCount === 0 || freezeActive}>
+          Congelar ({freezeCount})
+        </button>
+        <button onClick={() => activatePowerUp('remove')} disabled={removeCount === 0 || removeActive}>
+          Remover ({removeCount})
+        </button>
+      </div>
     </div>
   )
 }
