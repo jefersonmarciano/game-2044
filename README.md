@@ -24,6 +24,39 @@ Este projeto foi desenvolvido utilizando as seguintes tecnologias:
 - Detecção de fim de jogo
 - Botão de reinício do jogo
 
+## Funcionalidades Adicionais
+
+Além das funcionalidades básicas do jogo 2048, este projeto inclui algumas características extras:
+
+- **Bomba**: Uma habilidade especial que é desbloqueada quando o jogador atinge um tile de valor 128 ou superior. A bomba permite ao jogador remover um grupo de tiles do tabuleiro.
+
+- **Power-ups**: 
+  - **Congelar**: Impede que novas peças apareçam por algumas jogadas.
+  - **Remover**: Permite remover uma peça específica do tabuleiro.
+
+- **Animações**: Inclui animações para a explosão da bomba, melhorando a experiência visual do jogo.
+
+- **Responsividade**: O jogo é responsivo e pode ser jogado tanto em desktops quanto em dispositivos móveis.
+
+## Estrutura do Projeto
+
+O projeto está estruturado da seguinte forma:
+
+- `src/App.jsx`: Componente principal que gerencia o estado do jogo e a lógica principal.
+- `src/components/`: Pasta contendo componentes React reutilizáveis (como Board e GameOver).
+- `src/utils/gameLogic.js`: Arquivo contendo a lógica do jogo, incluindo movimentação das peças e verificação de fim de jogo.
+- `src/styles/`: Pasta contendo arquivos CSS para estilização do jogo.
+
+## Desafios Técnicos
+
+Durante o desenvolvimento, alguns desafios técnicos foram enfrentados e superados:
+
+1. Implementação da lógica de movimento das peças, garantindo que as peças se movam e se combinem corretamente.
+2. Criação de power-ups e habilidades especiais, como a bomba, sem quebrar o equilíbrio do jogo.
+3. Desenvolvimento de uma interface responsiva que funcione bem em diferentes tamanhos de tela.
+4. Implementação de animações suaves para melhorar a experiência do usuário.
+
+
 ## Como Executar o Projeto
 
 1. Certifique-se de ter o Node.js instalado em sua máquina.
