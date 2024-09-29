@@ -110,3 +110,36 @@ button:hover {
     border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.18);
 }
+
+@media (max-width: 768px) {
+    .app {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 36px;
+    }
+
+    .score, .best-score {
+        font-size: 18px;
+        padding: 8px 16px;
+    }
+
+    .board {
+        width: 300px;
+        height: 300px;
+    }
+
+    .tile {
+        width: 65px;
+        height: 65px;
+        font-size: 24px;
+    }
+}
+
+/* Prevenir o zoom em dispositivos móveis ao tocar nos elementos */
+@media (max-width: 768px) {
+    input, select, textarea, button {
+        font-size: 16px;
+    }
+}

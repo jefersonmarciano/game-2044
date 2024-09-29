@@ -47,7 +47,8 @@ Este projeto foi desenvolvido utilizando as seguintes tecnologias:
 
 ## Como Jogar
 
-- Use as teclas de seta (↑ ↓ ← →) para mover as peças no tabuleiro.
+- Use as teclas de seta (↑ ↓ ← →) para mover as peças no tabuleiro (em desktop).
+- Em dispositivos móveis, deslize o dedo na direção desejada para mover as peças.
 - Quando duas peças com o mesmo número se tocam, elas se fundem em uma nova peça com a soma dos valores.
 - O objetivo é criar uma peça com o valor 2048.
 - O jogo termina quando não há mais movimentos possíveis no tabuleiro.

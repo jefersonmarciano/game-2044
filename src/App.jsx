@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useSwipeable } from 'react-swipeable'
 import Board from './components/Board'
 import GameOver from './components/GameOver'
 import { initializeGame, move, isGameOver } from './utils/gameLogic'
@@ -12,29 +13,44 @@ function App() {
   })
   const [gameOver, setGameOver] = useState(false)
 
+  const handleMove = (direction) => {
+    if (!gameOver) {
+      const { newBoard, newScore } = move(board, direction)
+      setBoard(newBoard)
+      setScore((prevScore) => {
+        const updatedScore = prevScore + newScore
+        if (updatedScore > bestScore) {
+          setBestScore(updatedScore)
+          localStorage.setItem('bestScore', updatedScore.toString())
+        }
+        return updatedScore
+      })
+      
+      if (isGameOver(newBoard)) {
+        setGameOver(true)
+      }
+    }
+  }
+
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (!gameOver) {
-        const { newBoard, newScore } = move(board, event.key)
-        setBoard(newBoard)
-        setScore((prevScore) => {
-          const updatedScore = prevScore + newScore
-          if (updatedScore > bestScore) {
-            setBestScore(updatedScore)
-            localStorage.setItem('bestScore', updatedScore.toString())
-          }
-          return updatedScore
-        })
-        
-        if (isGameOver(newBoard)) {
-          setGameOver(true)
-        }
+      if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
+        handleMove(event.key)
       }
     }
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [board, gameOver, bestScore])
+
+  const handlers = useSwipeable({
+    onSwipedUp: () => handleMove('ArrowUp'),
+    onSwipedDown: () => handleMove('ArrowDown'),
+    onSwipedLeft: () => handleMove('ArrowLeft'),
+    onSwipedRight: () => handleMove('ArrowRight'),
+    preventDefaultTouchmoveEvent: true,
+    trackMouse: true
+  })
 
   const resetGame = () => {
     setBoard(initializeGame())
@@ -43,7 +59,7 @@ function App() {
   }
 
   return (
-    <div className="app">
+    <div className="app" {...handlers}>
       <h1>2048</h1>
       <div className="game-container">
         <div className="score-container">
